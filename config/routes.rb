@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index]
     resources :items, except: [:destroy]
     resources :item_status, only: [:update]
+    resources :bulk_discounts, only: [:index, :show, :new]
     resources :invoices, only: [:index, :show, :update]
   end
 
@@ -13,7 +14,9 @@ Rails.application.routes.draw do
     resources :invoices, except: [:new, :destroy]
   end
 
-  get "/merchants/:id/bulk_discounts", to: "bulk_discounts#index"
-  get "/merchants/:id/bulk_discounts/:id", to: "bulk_discounts#show"
+  # get "/merchants/:id/bulk_discounts", to: "bulk_discounts#index"
+  # get "/merchants/:id/bulk_discounts/:id", to: "bulk_discounts#show"
+  # get "/merchants/:id/bulk_discounts/new", to: "bulk_discounts#new"
+
 
 end
