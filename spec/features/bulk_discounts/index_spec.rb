@@ -66,6 +66,3 @@ RSpec.describe "merchant dashboard" do
   end
 end
 
-# <%= "Outings: " %><%= link_to "#{contestant_outing.outing.name}", "/outings/#{contestant_outing.outing.id}" %>
-
-# <%= "Discount: " %><%= link_to "#{discount.quantity}", "/bulk_discounts/#{discount.id}" %>
