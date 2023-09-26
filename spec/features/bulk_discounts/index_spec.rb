@@ -41,13 +41,31 @@ RSpec.describe "merchant dashboard" do
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
 
     @bulk_discount_1 = BulkDiscount.create!(quantity_threshold: 10, percentage_discount: 20.0, merchant_id: @merchant1.id)
-    @bulk_discount_1 = BulkDiscount.create!(quantity_threshold: 15, percentage_discount: 30.0, merchant_id: @merchant1.id)
-    @bulk_discount_1 = BulkDiscount.create!(quantity_threshold: 15, percentage_discount: 15.0, merchant_id: @merchant1.id)
+    @bulk_discount_2 = BulkDiscount.create!(quantity_threshold: 15, percentage_discount: 30.0, merchant_id: @merchant1.id)
+    @bulk_discount_3 = BulkDiscount.create!(quantity_threshold: 15, percentage_discount: 15.0, merchant_id: @merchant1.id)
 
     visit "/merchants/#{@merchant1.id}/bulk_discounts/"
   end
 
   it "displays all of my bulk discounts including their percentage discount and quantity thresholds" do
-    expect(page).to have_content()
+    expect(page).to have_content(@bulk_discount_1.quantity_threshold)
+    expect(page).to have_content(@bulk_discount_1.percentage_discount)
+
+    expect(page).to have_content(@bulk_discount_2.quantity_threshold)
+    expect(page).to have_content(@bulk_discount_2.percentage_discount)
+
+    expect(page).to have_content(@bulk_discount_3.quantity_threshold)
+    expect(page).to have_content(@bulk_discount_3.percentage_discount)
+    # save_and_open_page
+  end
+
+  it "each bulk discount listed includes a link to its show page" do
+    expect(page).to have_link("#{@bulk_discount_1.id}")
+    click_link("#{@bulk_discount_1.id}")
+    expect(current_path).to eq("/bulk_discounts/#{@bulk_discount_1.id}")
   end
 end
+
+# <%= "Outings: " %><%= link_to "#{contestant_outing.outing.name}", "/outings/#{contestant_outing.outing.id}" %>
+
+# <%= "Discount: " %><%= link_to "#{discount.quantity}", "/bulk_discounts/#{discount.id}" %>
